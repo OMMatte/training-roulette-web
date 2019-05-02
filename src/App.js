@@ -3,7 +3,7 @@ import Konva from 'konva'
 import './App.css';
 
 function App() {
-    var width = window.innerWidth;
+    var width = 400;
     var height = 400;
 
     Konva.angleDeg = false;
@@ -103,10 +103,6 @@ function App() {
         wheel.add(wedge);
     }
     function animate(frame) {
-        // console.log(angularVelocity);
-        // if(controlled) {
-        //     return false;
-        // }
         // handle wheel spin
         var angularVelocityChange =
             (angularVelocity * frame.timeDiff * (1 - angularFriction)) / 1000;
@@ -167,7 +163,7 @@ function App() {
         stage = new Konva.Stage({
             container: 'container',
             width: width,
-            height: 600
+            height: height
         });
         layer = new Konva.Layer();
         wheel = new Konva.Group({
@@ -198,10 +194,48 @@ function App() {
             shadowOpacity: 0.5
         });
 
+        var circle = new Konva.Circle({
+            x: stage.width() / 2,
+            y: stage.height() / 2,
+            radius: 50,
+            fill: 'red',
+            stroke: 'black',
+            strokeWidth: 4
+        });
+
+        var spinText = new Konva.Text({
+            x: stage.width() / 2 - 32,
+            y: stage.height() / 2 -12,
+            align: "center",
+            verticalAlign: 'middle',
+            text: 'SPIN',
+            fontSize: 30,
+            fontFamily: 'Calibri',
+            fill: 'green'
+        });
+
         // add components to the stage
         layer.add(wheel);
         layer.add(pointer);
+        layer.add(circle); //TODO add to wheel
+        layer.add(spinText); //TODO add to wheel
         stage.add(layer);
+
+        circle.on("mouseup", function(evt) {
+            angularVelocity = 6;
+            controlled = false;
+            target = evt.target;
+            finished = false;
+
+        });
+
+        spinText.on("mouseup", function(evt) {
+            angularVelocity = 6;
+            controlled = false;
+            target = evt.target;
+            finished = false;
+
+        });
 
         // bind events
         wheel.on('mousedown touchstart', function(evt) {
@@ -209,13 +243,17 @@ function App() {
             controlled = true;
             target = evt.target;
             finished = false;
+
         });
         // add listeners to container
-        stage.addEventListener(
+        wheel.on(
             'mouseup touchend',
             function() {
+                console.log(angularVelocity);
+
                 controlled = false;
                 angularVelocity = getAverageAngularVelocity() * 5;
+                console.log(angularVelocity);
 
                 if (angularVelocity > 20) {
                     angularVelocity = 20;
@@ -224,8 +262,7 @@ function App() {
                 }
 
                 angularVelocities = [];
-            },
-            false
+            }
         );
 
         stage.addEventListener(
@@ -259,7 +296,6 @@ function App() {
 
   return (
     <div className="App">
-        <button style={{top: "174px", left: "198px", width: "50px", height: "50px", position: "absolute", borderRadius: "50%"}}>SPIN</button>
     </div>
   );
 }
