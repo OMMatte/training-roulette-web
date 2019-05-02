@@ -4,17 +4,17 @@ import './App.css';
 
 function App() {
     var width = window.innerWidth;
-    var height = window.innerHeight;
+    var height = 400;
 
     Konva.angleDeg = false;
-    var angularVelocity = 6;
+    var angularVelocity = 0;
     var angularVelocities = [];
     var lastRotation = 0;
     var controlled = false;
     var numWedges = 25;
     var angularFriction = 0.2;
     var target, activeWedge, stage, layer, wheel, pointer;
-    var finished = false;
+    var finished = true;
 
     function getAverageAngularVelocity() {
         var total = 0;
@@ -66,12 +66,12 @@ function App() {
         });
 
         var wedgeBackground = new Konva.Wedge({
-            radius: 400,
+            radius: 180,
             angle: angle,
             fillRadialGradientStartPoint: {x: 0, y: 0},
             fillRadialGradientStartRadius: 0,
             fillRadialGradientEndPoint: {x: 0, y: 0},
-            fillRadialGradientEndRadius: 400,
+            fillRadialGradientEndRadius: 180,
             fillRadialGradientColorStops: [0, startColor, 1, endColor],
             fill: '#64e9f8',
             fillPriority: 'radial-gradient',
@@ -84,14 +84,14 @@ function App() {
         var text = new Konva.Text({
             text: reward,
             fontFamily: 'Calibri',
-            fontSize: 50,
+            fontSize: 10,
             fill: 'white',
             align: 'center',
             stroke: 'yellow',
             strokeWidth: 1,
             rotation: (Math.PI + angle) / 2,
-            x: 380,
-            y: 30,
+            x: 160,
+            y: 18,
             listening: false
         });
 
@@ -103,6 +103,10 @@ function App() {
         wheel.add(wedge);
     }
     function animate(frame) {
+        // console.log(angularVelocity);
+        // if(controlled) {
+        //     return false;
+        // }
         // handle wheel spin
         var angularVelocityChange =
             (angularVelocity * frame.timeDiff * (1 - angularFriction)) / 1000;
@@ -163,12 +167,12 @@ function App() {
         stage = new Konva.Stage({
             container: 'container',
             width: width,
-            height: height
+            height: 600
         });
         layer = new Konva.Layer();
         wheel = new Konva.Group({
             x: stage.width() / 2,
-            y: 410
+            y: 200
         });
 
         for (var n = 0; n < numWedges; n++) {
@@ -244,16 +248,18 @@ function App() {
         );
 
         var anim = new Konva.Animation(animate, layer);
+        anim.start()
 
-        // wait one second and then spin the wheel
-        setTimeout(function() {
-            anim.start();
-        }, 1000);
+        // // wait one second and then spin the wheel
+        // setTimeout(function() {
+        //     anim.start();
+        // }, 1000);
     }
     init();
 
   return (
     <div className="App">
+        <button style={{top: "174px", left: "198px", width: "50px", height: "50px", position: "absolute", borderRadius: "50%"}}>SPIN</button>
     </div>
   );
 }
