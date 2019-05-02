@@ -1,6 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
-import Konva from './'
+import Konva from 'konva'
 import './App.css';
 
 function App() {
@@ -69,9 +68,9 @@ function App() {
         var wedgeBackground = new Konva.Wedge({
             radius: 400,
             angle: angle,
-            fillRadialGradientStartPoint: 0,
+            fillRadialGradientStartPoint: {x: 0, y: 0},
             fillRadialGradientStartRadius: 0,
-            fillRadialGradientEndPoint: 0,
+            fillRadialGradientEndPoint: {x: 0, y: 0},
             fillRadialGradientEndRadius: 400,
             fillRadialGradientColorStops: [0, startColor, 1, endColor],
             fill: '#64e9f8',
@@ -134,7 +133,7 @@ function App() {
                         .findOne('Text')
                         .text();
                     var price = text.split('\n').join('');
-                    alert('You price is ' + price);
+                    console.log('You price is ' + price);
                 }
                 finished = true;
             }
@@ -176,9 +175,9 @@ function App() {
             addWedge(n);
         }
         pointer = new Konva.Wedge({
-            fillRadialGradientStartPoint: 0,
+            fillRadialGradientStartPoint: {x: 0, y: 0},
             fillRadialGradientStartRadius: 0,
-            fillRadialGradientEndPoint: 0,
+            fillRadialGradientEndPoint: {x: 0, y: 0},
             fillRadialGradientEndRadius: 30,
             fillRadialGradientColorStops: [0, 'white', 1, 'red'],
             stroke: 'white',
@@ -190,7 +189,7 @@ function App() {
             y: 33,
             rotation: -90,
             shadowColor: 'black',
-            shadowOffset: 3,
+            shadowOffset: {x: 0, y: 0},
             shadowBlur: 2,
             shadowOpacity: 0.5
         });
