@@ -203,22 +203,22 @@ function App() {
             strokeWidth: 4
         });
 
-        var spinText = new Konva.Text({
-            x: stage.width() / 2 - 32,
-            y: stage.height() / 2 -12,
-            align: "center",
-            verticalAlign: 'middle',
-            text: 'SPIN',
-            fontSize: 30,
-            fontFamily: 'Calibri',
-            fill: 'green'
-        });
+        // var spinText = new Konva.Text({
+        //     x: stage.width() / 2 - 32,
+        //     y: stage.height() / 2 -12,
+        //     align: "center",
+        //     verticalAlign: 'middle',
+        //     text: 'SPIN',
+        //     fontSize: 30,
+        //     fontFamily: 'Calibri',
+        //     fill: 'green'
+        // });
 
         // add components to the stage
         layer.add(wheel);
         layer.add(pointer);
         layer.add(circle); //TODO add to wheel
-        layer.add(spinText); //TODO add to wheel
+        // layer.add(spinText); //TODO add to wheel
         stage.add(layer);
 
         circle.on("mouseup", function(evt) {
@@ -229,13 +229,13 @@ function App() {
 
         });
 
-        spinText.on("mouseup", function(evt) {
-            angularVelocity = 6;
-            controlled = false;
-            target = evt.target;
-            finished = false;
-
-        });
+        // spinText.on("mouseup", function(evt) {
+        //     angularVelocity = 6;
+        //     controlled = false;
+        //     target = evt.target;
+        //     finished = false;
+        //
+        // });
 
         // bind events
         wheel.on('mousedown touchstart', function(evt) {
