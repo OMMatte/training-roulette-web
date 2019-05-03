@@ -1,0 +1,1 @@
+export const exercises = ["Sit-ups", "Push-ups", "Squat", "Burpee", "Front Plank", "Glute Bridge", "Side Lunge", "Superman"];

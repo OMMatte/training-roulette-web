@@ -1,6 +1,7 @@
 import React from 'react';
 import Konva from 'konva'
 import './App.css';
+import {exercises} from './exerciseData';
 
 function App() {
     var width = 400;
@@ -30,11 +31,13 @@ function App() {
 
         return total / len;
     }
+
     function purifyColor(color) {
         var randIndex = Math.round(Math.random() * 3);
         color[randIndex] = 0;
         return color;
     }
+
     function getRandomColor() {
         var r = 100 + Math.round(Math.random() * 55);
         var g = 100 + Math.round(Math.random() * 55);
@@ -42,13 +45,13 @@ function App() {
         return purifyColor([r, g, b]);
     }
 
-    function getRandomReward() {
-        var mainDigit = Math.round(Math.random() * 9);
-        return mainDigit + '\n0\n0';
+    function getRandomExercise() {
+        return exercises[Math.floor(Math.random() * exercises.length)];
     }
-    function addWedge(n) {
+
+    function addWedge(exerciseIndex) {
         var s = getRandomColor();
-        var reward = getRandomReward();
+        var exercise = getRandomExercise();
         var r = s[0];
         var g = s[1];
         var b = s[2];
@@ -62,7 +65,7 @@ function App() {
         var startColor = 'rgb(' + r + ',' + g + ',' + b + ')';
 
         var wedge = new Konva.Group({
-            rotation: (2 * n * Math.PI) / numWedges
+            rotation: (2 * exerciseIndex * Math.PI) / numWedges
         });
 
         var wedgeBackground = new Konva.Wedge({
@@ -82,7 +85,7 @@ function App() {
         wedge.add(wedgeBackground);
 
         var text = new Konva.Text({
-            text: reward,
+            text: exercise.split("").join('\n'),
             fontFamily: 'Calibri',
             fontSize: 10,
             fill: 'white',
